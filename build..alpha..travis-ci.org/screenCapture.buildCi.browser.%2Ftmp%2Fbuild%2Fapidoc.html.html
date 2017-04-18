@@ -56,6 +56,15 @@
 
         <li>
 
+            <a class="apidocElementLiA" href="#apidoc.element.webpack-dev-server.webpack-dev-server">
+            function <span class="apidocSignatureSpan"></span>webpack-dev-server
+            <span class="apidocSignatureSpan">(compiler, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
             <a class="apidocElementLiA" href="#apidoc.element.webpack-dev-server.addDevServerEntrypoints">
             function <span class="apidocSignatureSpan">webpack-dev-server.</span>addDevServerEntrypoints
             <span class="apidocSignatureSpan">(webpackOptions, devServerOptions)</span>
@@ -437,6 +446,154 @@
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.webpack-dev-server" id="apidoc.module.webpack-dev-server">module webpack-dev-server</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.webpack-dev-server.webpack-dev-server" id="apidoc.element.webpack-dev-server.webpack-dev-server">
+        function <span class="apidocSignatureSpan"></span>webpack-dev-server
+        <span class="apidocSignatureSpan">(compiler, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Server(compiler, options) {
+	// Default options
+	if(!options) options = {};
+
+	const validationErrors = webpack.validateSchema(optionsSchema, options);
+	if(validationErrors.length) {
+		throw new OptionsValidationError(validationErrors);
+	}
+
+	if(options.lazy &amp;&amp; !options.filename) {
+		throw new Error("'filename' option must be set in lazy mode.");
+	}
+
+	this.hot = options.hot || options.hotOnly;
+	this.headers = options.headers;
+	this.clientLogLevel = options.clientLogLevel;
+	this.clientOverlay = options.overlay;
+	this.sockets = [];
+	this.contentBaseWatchers = [];
+
+	// Listening for events
+	const invalidPlugin = () =&gt; {
+		this.sockWrite(this.sockets, "invalid");
+	};
+	compiler.plugin("compile", invalidPlugin);
+	compiler.plugin("invalid", invalidPlugin);
+	compiler.plugin("done", (stats) =&gt; {
+		this._sendStats(this.sockets, stats.toJson(clientStats));
+		this._stats = stats;
+	});
+
+	// Init express server
+	const app = this.app = new express();
+
+	// middleware for serving webpack bundle
+	this.middleware = webpackDevMiddleware(compiler, options);
+
+	app.get("/__webpack_dev_server__/live.bundle.js", (req, res) =&gt; {
+		res.setHeader("Content-Type", "application/javascript");
+		fs.createReadStream(path.join(__dirname, "..", "client", "live.bundle.js")).pipe(res);
+	});
+
+	app.get("/__webpack_dev_server__/sockjs.bundle.js", (req, res) =&gt; {
+		res.setHeader("Content-Type", "application/javascript");
+		fs.createReadStream(path.join(__dirname, "..", "client", "sockjs.bundle.js")).pipe(res);
+	});
+
+	app.get("/webpack-dev-server.js", (req, res) =&gt; {
+		res.setHeader("Content-Type", "application/javascript");
+		fs.createReadStream(path.join(__dirname, "..", "client", "index.bundle.js")).pipe(res);
+	});
+
+	app.get("/webpack-dev-server<span class="apidocCodeCommentSpan">/*", (req, res) =&gt; {
+		res.setHeader("Content-Type", "text/html");
+		fs.createReadStream(path.join(__dirname, "..", "client", "live.html")).pipe(res);
+	});
+
+	app.get("/webpack-dev-server", (req, res) =&gt; {
+		res.setHeader("Content-Type", "text/html");
+		/* eslint-disable quotes */
+</span>		res.write('&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset="utf-8"/&gt;&lt;/head&gt;&lt;body&gt;');
+		const path = this.middleware.getFilenameFromUrl(options.publicPath || "/");
+		const fs = this.middleware.fileSystem;
+
+		function writeDirectory(baseUrl, basePath) {
+			const content = fs.readdirSync(basePath);
+			res.write("&lt;ul&gt;");
+			content.forEach(function(item) {
+				const p = `${basePath}/${item}`;
+				if(fs.statSync(p).isFile()) {
+					res.write('&lt;li&gt;&lt;a href="');
+					res.write(baseUrl + item);
+					res.write('"&gt;');
+					res.write(item);
+					res.write('&lt;/a&gt;&lt;/li&gt;');
+					if(/\.js$/.test(item)) {
+						const htmlItem = item.substr(0, item.length - 3);
+						res.write('&lt;li&gt;&lt;a href="');
+						res.write(baseUrl + htmlItem);
+						res.write('"&gt;');
+						res.write(htmlItem);
+						res.write('&lt;/a&gt; (magic html for ');
+						res.write(item);
+						res.write(') (&lt;a href="');
+						res.write(baseUrl.replace(/(^(https?:\/\/[^\/]+)?\/)/, "$1webpack-dev-server/") + htmlItem);
+						res.write('"&gt;webpack-dev-server&lt;/a&gt;)&lt;/li&gt;');
+					}
+				} else {
+					res.write('&lt;li&gt;');
+					res.write(item);
+					res.write('&lt;br&gt;');
+					writeDirectory(`${baseUrl + item}/`, p);
+					res.write('&lt;/li&gt;');
+				}
+			});
+			res.write("&lt;/ul&gt;");
+		}
+		/* eslint-enable quotes */
+		writeDirectory(options.publicPath || "/", path);
+		res.end("&lt;/body&gt;&lt;/html&gt;");
+	});
+
+	let contentBase;
+	if(options.contentBase !== undefined) {
+		contentBase = options.contentBase;
+	} else {
+		contentBase = process.cwd();
+	}
+
+	// Keep track of websocket proxies for external websocket upgrade.
+	const websocketProxies = [];
+
+	const features = {
+		compress() {
+			if(options.compress) {
+				// Enable gzip compression.
+				app.use(compress());
+			}
+		},
+
+		proxy() {
+			if(options.proxy) {
+				/**
+				 * Assume a proxy configuration specified as:
+				 * proxy: {
+				 *   'context': { options }
+				 * }
+				 * OR
+				 * proxy: {
+				 *   'context': 'target'
+				 * }
+				 */
+				if(!Array.isArray(options.proxy)) {
+					options.proxy = Object.keys(options.proxy).map((context) =&gt; {
+						let proxyOptions;
+						// For backward ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
 
 
     <h2>

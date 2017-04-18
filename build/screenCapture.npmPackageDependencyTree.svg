@@ -24,7 +24,7 @@
 <tspan x="10" y="346">  │   │ └─┬ brace-expansion@1.1.7 </tspan>
 <tspan x="10" y="362">  │   │   ├── balanced-match@0.4.2 </tspan>
 <tspan x="10" y="378">  │   │   └── concat-map@0.0.1 </tspan>
-<tspan x="10" y="394">  │   ├─┬ readable-stream@2.2.8 </tspan>
+<tspan x="10" y="394">  │   ├─┬ readable-stream@2.2.9 </tspan>
 <tspan x="10" y="410">  │   │ ├── buffer-shims@1.0.0 </tspan>
 <tspan x="10" y="426">  │   │ ├── core-util-is@1.0.2 </tspan>
 <tspan x="10" y="442">  │   │ ├── isarray@1.0.0 </tspan>
@@ -92,7 +92,7 @@
 <tspan x="10" y="1434">  │ ├── lodash@4.17.4 </tspan>
 <tspan x="10" y="1450">  │ └─┬ micromatch@2.3.11 </tspan>
 <tspan x="10" y="1466">  │   ├─┬ arr-diff@2.0.0 </tspan>
-<tspan x="10" y="1482">  │   │ └── arr-flatten@1.0.1 </tspan>
+<tspan x="10" y="1482">  │   │ └── arr-flatten@1.0.3 </tspan>
 <tspan x="10" y="1498">  │   ├── array-unique@0.2.1 </tspan>
 <tspan x="10" y="1514">  │   ├─┬ braces@1.8.5 </tspan>
 <tspan x="10" y="1530">  │   │ ├─┬ expand-range@1.8.2 </tspan>
@@ -187,7 +187,7 @@
 <tspan x="10" y="2954">    │   │ └─┬ strip-bom@2.0.0 </tspan>
 <tspan x="10" y="2970">    │   │   └── is-utf8@0.2.1 </tspan>
 <tspan x="10" y="2986">    │   ├─┬ normalize-package-data@2.3.6 </tspan>
-<tspan x="10" y="3002">    │   │ ├── hosted-git-info@2.4.1 </tspan>
+<tspan x="10" y="3002">    │   │ ├── hosted-git-info@2.4.2 </tspan>
 <tspan x="10" y="3018">    │   │ ├─┬ is-builtin-module@1.0.0 </tspan>
 <tspan x="10" y="3034">    │   │ │ └── builtin-modules@1.1.1 </tspan>
 <tspan x="10" y="3050">    │   │ ├── semver@5.3.0 </tspan>

@@ -63,6 +63,15 @@
 
         <li>
 
+            <a class="apidocElementLiA" href="#apidoc.element.webpack-dev-server.webpack-dev-server">
+            function <span class="apidocSignatureSpan"></span>webpack-dev-server
+            <span class="apidocSignatureSpan">(compiler, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
             <a class="apidocElementLiA" href="#apidoc.element.webpack-dev-server.addDevServerEntrypoints">
             function <span class="apidocSignatureSpan">webpack-dev-server.</span>addDevServerEntrypoints
             <span class="apidocSignatureSpan">(webpackOptions, devServerOptions)</span>
@@ -444,6 +453,154 @@
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.webpack-dev-server" id="apidoc.module.webpack-dev-server">module webpack-dev-server</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.webpack-dev-server.webpack-dev-server" id="apidoc.element.webpack-dev-server.webpack-dev-server">
+        function <span class="apidocSignatureSpan"></span>webpack-dev-server
+        <span class="apidocSignatureSpan">(compiler, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Server(compiler, options) {
+	// Default options
+	if(!options) options = {};
+
+	const validationErrors = webpack.validateSchema(optionsSchema, options);
+	if(validationErrors.length) {
+		throw new OptionsValidationError(validationErrors);
+	}
+
+	if(options.lazy &#x26;&#x26; !options.filename) {
+		throw new Error(&#x22;&#x27;filename&#x27; option must be set in lazy mode.&#x22;);
+	}
+
+	this.hot = options.hot || options.hotOnly;
+	this.headers = options.headers;
+	this.clientLogLevel = options.clientLogLevel;
+	this.clientOverlay = options.overlay;
+	this.sockets = [];
+	this.contentBaseWatchers = [];
+
+	// Listening for events
+	const invalidPlugin = () =&#x3e; {
+		this.sockWrite(this.sockets, &#x22;invalid&#x22;);
+	};
+	compiler.plugin(&#x22;compile&#x22;, invalidPlugin);
+	compiler.plugin(&#x22;invalid&#x22;, invalidPlugin);
+	compiler.plugin(&#x22;done&#x22;, (stats) =&#x3e; {
+		this._sendStats(this.sockets, stats.toJson(clientStats));
+		this._stats = stats;
+	});
+
+	// Init express server
+	const app = this.app = new express();
+
+	// middleware for serving webpack bundle
+	this.middleware = webpackDevMiddleware(compiler, options);
+
+	app.get(&#x22;/__webpack_dev_server__/live.bundle.js&#x22;, (req, res) =&#x3e; {
+		res.setHeader(&#x22;Content-Type&#x22;, &#x22;application/javascript&#x22;);
+		fs.createReadStream(path.join(__dirname, &#x22;..&#x22;, &#x22;client&#x22;, &#x22;live.bundle.js&#x22;)).pipe(res);
+	});
+
+	app.get(&#x22;/__webpack_dev_server__/sockjs.bundle.js&#x22;, (req, res) =&#x3e; {
+		res.setHeader(&#x22;Content-Type&#x22;, &#x22;application/javascript&#x22;);
+		fs.createReadStream(path.join(__dirname, &#x22;..&#x22;, &#x22;client&#x22;, &#x22;sockjs.bundle.js&#x22;)).pipe(res);
+	});
+
+	app.get(&#x22;/webpack-dev-server.js&#x22;, (req, res) =&#x3e; {
+		res.setHeader(&#x22;Content-Type&#x22;, &#x22;application/javascript&#x22;);
+		fs.createReadStream(path.join(__dirname, &#x22;..&#x22;, &#x22;client&#x22;, &#x22;index.bundle.js&#x22;)).pipe(res);
+	});
+
+	app.get(&#x22;/webpack-dev-server<span class="apidocCodeCommentSpan">/*&#x22;, (req, res) =&#x3e; {
+		res.setHeader(&#x22;Content-Type&#x22;, &#x22;text/html&#x22;);
+		fs.createReadStream(path.join(__dirname, &#x22;..&#x22;, &#x22;client&#x22;, &#x22;live.html&#x22;)).pipe(res);
+	});
+
+	app.get(&#x22;/webpack-dev-server&#x22;, (req, res) =&#x3e; {
+		res.setHeader(&#x22;Content-Type&#x22;, &#x22;text/html&#x22;);
+		/* eslint-disable quotes */
+</span>		res.write(&#x27;&#x3c;!DOCTYPE html&#x3e;&#x3c;html&#x3e;&#x3c;head&#x3e;&#x3c;meta charset=&#x22;utf-8&#x22;/&#x3e;&#x3c;/head&#x3e;&#x3c;body&#x3e;&#x27;);
+		const path = this.middleware.getFilenameFromUrl(options.publicPath || &#x22;/&#x22;);
+		const fs = this.middleware.fileSystem;
+
+		function writeDirectory(baseUrl, basePath) {
+			const content = fs.readdirSync(basePath);
+			res.write(&#x22;&#x3c;ul&#x3e;&#x22;);
+			content.forEach(function(item) {
+				const p = `${basePath}/${item}`;
+				if(fs.statSync(p).isFile()) {
+					res.write(&#x27;&#x3c;li&#x3e;&#x3c;a href=&#x22;&#x27;);
+					res.write(baseUrl + item);
+					res.write(&#x27;&#x22;&#x3e;&#x27;);
+					res.write(item);
+					res.write(&#x27;&#x3c;/a&#x3e;&#x3c;/li&#x3e;&#x27;);
+					if(/\.js$/.test(item)) {
+						const htmlItem = item.substr(0, item.length - 3);
+						res.write(&#x27;&#x3c;li&#x3e;&#x3c;a href=&#x22;&#x27;);
+						res.write(baseUrl + htmlItem);
+						res.write(&#x27;&#x22;&#x3e;&#x27;);
+						res.write(htmlItem);
+						res.write(&#x27;&#x3c;/a&#x3e; (magic html for &#x27;);
+						res.write(item);
+						res.write(&#x27;) (&#x3c;a href=&#x22;&#x27;);
+						res.write(baseUrl.replace(/(^(https?:\/\/[^\/]+)?\/)/, &#x22;$1webpack-dev-server/&#x22;) + htmlItem);
+						res.write(&#x27;&#x22;&#x3e;webpack-dev-server&#x3c;/a&#x3e;)&#x3c;/li&#x3e;&#x27;);
+					}
+				} else {
+					res.write(&#x27;&#x3c;li&#x3e;&#x27;);
+					res.write(item);
+					res.write(&#x27;&#x3c;br&#x3e;&#x27;);
+					writeDirectory(`${baseUrl + item}/`, p);
+					res.write(&#x27;&#x3c;/li&#x3e;&#x27;);
+				}
+			});
+			res.write(&#x22;&#x3c;/ul&#x3e;&#x22;);
+		}
+		/* eslint-enable quotes */
+		writeDirectory(options.publicPath || &#x22;/&#x22;, path);
+		res.end(&#x22;&#x3c;/body&#x3e;&#x3c;/html&#x3e;&#x22;);
+	});
+
+	let contentBase;
+	if(options.contentBase !== undefined) {
+		contentBase = options.contentBase;
+	} else {
+		contentBase = process.cwd();
+	}
+
+	// Keep track of websocket proxies for external websocket upgrade.
+	const websocketProxies = [];
+
+	const features = {
+		compress() {
+			if(options.compress) {
+				// Enable gzip compression.
+				app.use(compress());
+			}
+		},
+
+		proxy() {
+			if(options.proxy) {
+				/**
+				 * Assume a proxy configuration specified as:
+				 * proxy: {
+				 *   &#x27;context&#x27;: { options }
+				 * }
+				 * OR
+				 * proxy: {
+				 *   &#x27;context&#x27;: &#x27;target&#x27;
+				 * }
+				 */
+				if(!Array.isArray(options.proxy)) {
+					options.proxy = Object.keys(options.proxy).map((context) =&#x3e; {
+						let proxyOptions;
+						// For backward ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
 
 
     <h2>
