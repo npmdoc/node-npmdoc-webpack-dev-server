@@ -5,7 +5,7 @@
 <tspan x="10" y="42"></tspan>
 <tspan x="10" y="58">node_modules</tspan>
 <tspan x="10" y="74">├── UNMET PEER DEPENDENCY webpack@^2.2.0</tspan>
-<tspan x="10" y="90">└─┬ webpack-dev-server@2.4.2 </tspan>
+<tspan x="10" y="90">└─┬ webpack-dev-server@2.4.5 </tspan>
 <tspan x="10" y="106">  ├── ansi-html@0.0.7 </tspan>
 <tspan x="10" y="122">  ├─┬ chokidar@1.6.1 </tspan>
 <tspan x="10" y="138">  │ ├─┬ anymatch@1.3.0 </tspan>
@@ -55,9 +55,9 @@
 <tspan x="10" y="842">  │ ├── encodeurl@1.0.1 </tspan>
 <tspan x="10" y="858">  │ ├── escape-html@1.0.3 </tspan>
 <tspan x="10" y="874">  │ ├── etag@1.8.0 </tspan>
-<tspan x="10" y="890">  │ ├─┬ finalhandler@1.0.1 </tspan>
-<tspan x="10" y="906">  │ │ ├─┬ debug@2.6.3 </tspan>
-<tspan x="10" y="922">  │ │ │ └── ms@0.7.2 </tspan>
+<tspan x="10" y="890">  │ ├─┬ finalhandler@1.0.2 </tspan>
+<tspan x="10" y="906">  │ │ ├─┬ debug@2.6.4 </tspan>
+<tspan x="10" y="922">  │ │ │ └── ms@0.7.3 </tspan>
 <tspan x="10" y="938">  │ │ └── unpipe@1.0.0 </tspan>
 <tspan x="10" y="954">  │ ├── fresh@0.5.0 </tspan>
 <tspan x="10" y="970">  │ ├── merge-descriptors@1.0.1 </tspan>
@@ -82,7 +82,7 @@
 <tspan x="10" y="1274">  │ ├─┬ type-is@1.6.15 </tspan>
 <tspan x="10" y="1290">  │ │ └── media-typer@0.3.0 </tspan>
 <tspan x="10" y="1306">  │ └── utils-merge@1.0.0 </tspan>
-<tspan x="10" y="1322">  ├── html-entities@1.2.0 </tspan>
+<tspan x="10" y="1322">  ├── html-entities@1.2.1 </tspan>
 <tspan x="10" y="1338">  ├─┬ http-proxy-middleware@0.17.4 </tspan>
 <tspan x="10" y="1354">  │ ├─┬ http-proxy@1.16.2 </tspan>
 <tspan x="10" y="1370">  │ │ ├── eventemitter3@1.2.0 </tspan>
@@ -107,7 +107,7 @@
 <tspan x="10" y="1674">  │   │ └── is-posix-bracket@0.1.1 </tspan>
 <tspan x="10" y="1690">  │   ├── extglob@0.3.2 </tspan>
 <tspan x="10" y="1706">  │   ├── filename-regex@2.0.0 </tspan>
-<tspan x="10" y="1722">  │   ├─┬ kind-of@3.1.0 </tspan>
+<tspan x="10" y="1722">  │   ├─┬ kind-of@3.2.0 </tspan>
 <tspan x="10" y="1738">  │   │ └── is-buffer@1.1.5 </tspan>
 <tspan x="10" y="1754">  │   ├─┬ normalize-path@2.1.1 </tspan>
 <tspan x="10" y="1770">  │   │ └── remove-trailing-separator@1.0.1 </tspan>
@@ -161,7 +161,7 @@
 <tspan x="10" y="2538">  ├─┬ supports-color@3.2.3 </tspan>
 <tspan x="10" y="2554">  │ └── has-flag@1.0.0 </tspan>
 <tspan x="10" y="2570">  ├── UNMET PEER DEPENDENCY webpack@1 || ^2.1.0-beta || ^2.2.0-rc.0</tspan>
-<tspan x="10" y="2586">  ├─┬ webpack-dev-middleware@1.10.1 </tspan>
+<tspan x="10" y="2586">  ├─┬ webpack-dev-middleware@1.10.2 </tspan>
 <tspan x="10" y="2602">  │ ├─┬ memory-fs@0.4.1 </tspan>
 <tspan x="10" y="2618">  │ │ └─┬ errno@0.1.4 </tspan>
 <tspan x="10" y="2634">  │ │   └── prr@0.0.0 </tspan>
@@ -186,7 +186,7 @@
 <tspan x="10" y="2938">    │   │ ├── pify@2.3.0 </tspan>
 <tspan x="10" y="2954">    │   │ └─┬ strip-bom@2.0.0 </tspan>
 <tspan x="10" y="2970">    │   │   └── is-utf8@0.2.1 </tspan>
-<tspan x="10" y="2986">    │   ├─┬ normalize-package-data@2.3.6 </tspan>
+<tspan x="10" y="2986">    │   ├─┬ normalize-package-data@2.3.8 </tspan>
 <tspan x="10" y="3002">    │   │ ├── hosted-git-info@2.4.2 </tspan>
 <tspan x="10" y="3018">    │   │ ├─┬ is-builtin-module@1.0.0 </tspan>
 <tspan x="10" y="3034">    │   │ │ └── builtin-modules@1.1.1 </tspan>
