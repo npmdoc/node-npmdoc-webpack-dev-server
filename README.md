@@ -1,6 +1,6 @@
 # npmdoc-webpack-dev-server
 
-#### api documentation for  [webpack-dev-server (v2.4.2)](http://github.com/webpack/webpack-dev-server)  [![npm package](https://img.shields.io/npm/v/npmdoc-webpack-dev-server.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-webpack-dev-server) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-webpack-dev-server.svg)](https://travis-ci.org/npmdoc/node-npmdoc-webpack-dev-server)
+#### basic api documentation for  [webpack-dev-server (v2.4.5)](http://github.com/webpack/webpack-dev-server)  [![npm package](https://img.shields.io/npm/v/npmdoc-webpack-dev-server.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-webpack-dev-server) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-webpack-dev-server.svg)](https://travis-ci.org/npmdoc/node-npmdoc-webpack-dev-server)
 
 #### Serves a webpack app. Updates the browser on changes.
 
@@ -46,7 +46,7 @@
         "spdy": "^3.4.1",
         "strip-ansi": "^3.0.0",
         "supports-color": "^3.1.1",
-        "webpack-dev-middleware": "^1.9.0",
+        "webpack-dev-middleware": "^1.10.2",
         "yargs": "^6.0.0"
     },
     "description": "Serves a webpack app. Updates the browser on changes.",
@@ -73,8 +73,8 @@
     },
     "directories": {},
     "dist": {
-        "shasum": "cf595d6b40878452b6d2ad7229056b686f8a16be",
-        "tarball": "https://registry.npmjs.org/webpack-dev-server/-/webpack-dev-server-2.4.2.tgz"
+        "shasum": "31384ce81136be1080b4b4cde0eb9b90e54ee6cf",
+        "tarball": "https://registry.npmjs.org/webpack-dev-server/-/webpack-dev-server-2.4.5.tgz"
     },
     "engines": {
         "node": ">=4.7"
@@ -85,7 +85,7 @@
         "client/",
         "ssl/"
     ],
-    "gitHead": "60e47270860165d41fe4654d78aa2fee8dbdcdc1",
+    "gitHead": "662bc31a4fc44b6888b5a0baff9ee96fef049cdb",
     "homepage": "http://github.com/webpack/webpack-dev-server",
     "license": "MIT",
     "main": "lib/Server.js",
@@ -121,7 +121,7 @@
         "test": "mocha --full-trace --check-leaks",
         "travis": "npm run cover -- --report lcovonly && npm run lint"
     },
-    "version": "2.4.2"
+    "version": "2.4.5"
 }
 ```
 

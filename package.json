@@ -1,7 +1,7 @@
 {
     "author": "kai zhu <kaizhu256@gmail.com>",
     "buildNpmdoc": "webpack-dev-server",
-    "description": "#### api documentation for  [webpack-dev-server (v2.4.2)](http://github.com/webpack/webpack-dev-server)  [![npm package](https://img.shields.io/npm/v/npmdoc-webpack-dev-server.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-webpack-dev-server) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-webpack-dev-server.svg)](https://travis-ci.org/npmdoc/node-npmdoc-webpack-dev-server)",
+    "description": "#### basic api documentation for  [webpack-dev-server (v2.4.5)](http://github.com/webpack/webpack-dev-server)  [![npm package](https://img.shields.io/npm/v/npmdoc-webpack-dev-server.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-webpack-dev-server) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-webpack-dev-server.svg)](https://travis-ci.org/npmdoc/node-npmdoc-webpack-dev-server)",
     "devDependencies": {
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
         "utility2": "kaizhu256/node-utility2#alpha",
@@ -36,5 +36,5 @@
         "start": "(set -e; export PORT=${PORT:-8080}; utility2 start test.js)",
         "test": "(set -e; export PORT=$(utility2 shServerPortRandom); utility2 test test.js)"
     },
-    "version": "0.0.4"
+    "version": "2017.4.27"
 }
